@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Достижения — Плоских Александр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .page-hero {
+    min-height: 45vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 10rem 6rem 4rem;
+    position: relative;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+    );
+    pointer-events: none;
+  }
+  .page-hero-inner { max-width: 1200px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+  .page-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .page-eyebrow::before { content: '//'; color: var(--muted2); }
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--white);
+  }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  /* NOTE BLOCK */
+  .file-note {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .file-note strong { color: var(--gold); }
+
+  /* ACHIEVEMENTS SECTION */
+  #achievements-main { background: var(--black); }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .achievement-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2.5rem;
+    transition: border-color 0.4s, transform 0.4s var(--ease), background 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease);
+  }
+  .achievement-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.03);
+    transform: translateY(-6px);
+  }
+  .achievement-card:hover::before { transform: scaleX(1); }
+
+  .achievement-icon {
+    width: 48px; height: 48px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+    background: rgba(201,168,76,0.05);
+  }
+  .achievement-year {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .achievement-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .achievement-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+  .achievement-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  /* FILE SLOT */
+  .achievement-file-slot {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .achievement-file-slot::before { content: '📁'; }
+
+  @media (max-width: 900px) {
+    .page-hero { padding: 8rem 1.5rem 3rem; }
+    .achievements-grid { grid-template-columns: 1fr; }
+    #achievements-main { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="progress-bar" id="readingProgress"></div>
+
+<nav id="mainNav">
+  <a href="../index.html" class="nav-logo"><span>//</span> ploskikh.dev</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Главная</a></li>
+    <li><a href="../projects/index.html">Проекты</a></li>
+    <li><a href="index.html" class="active">Достижения</a></li>
+    <li><a href="../certificates/index.html">Сертификаты</a></li>
+    <li><a href="../citizen/index.html">Гражданин</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html" onclick="closeMobile()">Главная</a>
+  <a href="../projects/index.html" onclick="closeMobile()">Проекты</a>
+  <a href="index.html" onclick="closeMobile()">Достижения</a>
+  <a href="../certificates/index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="../citizen/index.html" onclick="closeMobile()">Гражданин</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Мои результаты</div>
+    <h1 class="page-title">Дости<em>жения</em></h1>
+  </div>
+</div>
+
+<section id="achievements-main">
+  <div class="section-inner">
+
+    <div class="file-note reveal">
+      <strong>// Как добавить достижение:</strong><br>
+      Положите файл подтверждения (фото, PDF, скан) в папку <strong>achievements/</strong>.<br>
+      Отредактируйте карточку ниже: укажите название, год и описание. Путь к файлу — в строке «📁».
+    </div>
+
+    <div class="achievements-grid" id="achievementsGrid">
+
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">🏆</div>
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">Добавьте своё достижение</div>
+        <div class="achievement-desc">Опишите достижение: участие в олимпиаде, победа в конкурсе, хакатоне или другое значимое событие. Положите подтверждающий документ в папку achievements/.</div>
+        <span class="achievement-badge">Место · Уровень</span>
+        <div class="achievement-file-slot">achievements/achievement-1.pdf</div>
+      </div>
+
+      <div class="achievement-card reveal reveal-delay-1">
+        <div class="achievement-icon">🥇</div>
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">Второе достижение</div>
+        <div class="achievement-desc">Ещё одно ваше достижение. Скопируйте карточку и заполните своими данными — год, название, описание и путь к файлу в папке achievements/.</div>
+        <span class="achievement-badge">Участие · Победа</span>
+        <div class="achievement-file-slot">achievements/achievement-2.pdf</div>
+      </div>
+
+      <div class="achievement-card reveal reveal-delay-2">
+        <div class="achievement-icon">💡</div>
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">Третье достижение</div>
+        <div class="achievement-desc">Описание третьего достижения. Сайт автоматически показывает первые 4 карточки, остальные открываются по кнопке «Показать ещё».</div>
+        <span class="achievement-badge">Проект · Результат</span>
+        <div class="achievement-file-slot">achievements/achievement-3.pdf</div>
+      </div>
+
+      <div class="achievement-card reveal reveal-delay-3">
+        <div class="achievement-icon">⚡</div>
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">Четвёртое достижение</div>
+        <div class="achievement-desc">Четвёртая карточка — последняя из показанных по умолчанию. Добавьте сюда реальное своё достижение. Остальные будут скрыты и откроются по клику.</div>
+        <span class="achievement-badge">Конкурс · Место</span>
+        <div class="achievement-file-slot">achievements/achievement-4.pdf</div>
+      </div>
+
+      <!-- Дополнительные карточки (скрыты до нажатия "Показать ещё") -->
+      <div class="achievement-card reveal">
+        <div class="achievement-icon">🎯</div>
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">Пятое достижение</div>
+        <div class="achievement-desc">Эта карточка скрыта по умолчанию. Она откроется, когда пользователь нажмёт «Показать ещё». Заполните своими данными.</div>
+        <span class="achievement-badge">Тип · Уровень</span>
+        <div class="achievement-file-slot">achievements/achievement-5.pdf</div>
+      </div>
+
+      <div class="achievement-card reveal reveal-delay-1">
+        <div class="achievement-icon">🔬</div>
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">Шестое достижение</div>
+        <div class="achievement-desc">Ещё одна скрытая карточка. Добавляйте сколько угодно — они все откроются по кнопке. Кнопка «Скрыть» сворачивает список обратно.</div>
+        <span class="achievement-badge">Мероприятие</span>
+        <div class="achievement-file-slot">achievements/achievement-6.pdf</div>
+      </div>
+
+    </div>
+
+    <div class="show-more-wrap">
+      <button class="btn-show-more" id="achievementsShowMore">
+        <span class="btn-text">Показать ещё</span>
+        <span class="arrow">↓</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Плоских Александр Павлович</div>
+  <div class="footer-copy">© 2025 · Группа Пр-41</div>
+  <div class="footer-links">
+    <a href="../index.html">Главная</a>
+    <a href="../projects/index.html">Проекты</a>
+    <a href="../certificates/index.html">Сертификаты</a>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

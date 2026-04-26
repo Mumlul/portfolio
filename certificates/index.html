@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сертификаты — Плоских Александр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .page-hero {
+    min-height: 45vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 10rem 6rem 4rem;
+    position: relative;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+    );
+    pointer-events: none;
+  }
+  .page-hero-inner { max-width: 1200px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+  .page-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .page-eyebrow::before { content: '//'; color: var(--muted2); }
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--white);
+  }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  .file-note {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .file-note strong { color: var(--gold); }
+
+  #certs-main { background: var(--black); }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .cert-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem 1.5rem;
+    transition: border-color 0.4s, transform 0.4s var(--ease);
+    position: relative;
+    text-align: center;
+  }
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease);
+  }
+  .cert-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-6px);
+  }
+  .cert-card:hover::after { transform: scaleX(1); }
+
+  .cert-icon {
+    width: 52px;
+    height: 68px;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.15);
+    margin: 0 auto 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 700;
+    position: relative;
+  }
+  .cert-icon::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    border-left: 10px solid var(--dark2);
+    border-top: 10px solid var(--black);
+  }
+
+  .cert-title {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+  }
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted2);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+  .cert-year {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+  }
+
+  .cert-file-slot {
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted2);
+    word-break: break-all;
+  }
+
+  @media (max-width: 1100px) {
+    .certs-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .page-hero { padding: 8rem 1.5rem 3rem; }
+    .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    #certs-main { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 500px) {
+    .certs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="progress-bar" id="readingProgress"></div>
+
+<nav id="mainNav">
+  <a href="../index.html" class="nav-logo"><span>//</span> ploskikh.dev</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Главная</a></li>
+    <li><a href="../projects/index.html">Проекты</a></li>
+    <li><a href="../achievements/index.html">Достижения</a></li>
+    <li><a href="index.html" class="active">Сертификаты</a></li>
+    <li><a href="../citizen/index.html">Гражданин</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../index.html" onclick="closeMobile()">Главная</a>
+  <a href="../projects/index.html" onclick="closeMobile()">Проекты</a>
+  <a href="../achievements/index.html" onclick="closeMobile()">Достижения</a>
+  <a href="index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="../citizen/index.html" onclick="closeMobile()">Гражданин</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Подтверждённые знания</div>
+    <h1 class="page-title">Серти<em>фикаты</em></h1>
+  </div>
+</div>
+
+<section id="certs-main">
+  <div class="section-inner">
+
+    <div class="file-note reveal">
+      <strong>// Как добавить сертификат:</strong><br>
+      Положите файл (PDF или фото) в папку <strong>certificates/</strong>.<br>
+      Скопируйте карточку ниже, укажите название, кто выдал, год и путь к файлу.
+    </div>
+
+    <div class="certs-grid" id="certsGrid">
+
+      <div class="cert-card reveal">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Сертификат 1</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2024</div>
+        <div class="cert-file-slot">certificates/cert-1.pdf</div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Сертификат 2</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2024</div>
+        <div class="cert-file-slot">certificates/cert-2.pdf</div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Сертификат 3</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2023</div>
+        <div class="cert-file-slot">certificates/cert-3.pdf</div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Свидетельство 4</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2023</div>
+        <div class="cert-file-slot">certificates/cert-4.pdf</div>
+      </div>
+
+      <!-- Скрытые карточки -->
+      <div class="cert-card reveal">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Сертификат 5</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2023</div>
+        <div class="cert-file-slot">certificates/cert-5.pdf</div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Сертификат 6</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2022</div>
+        <div class="cert-file-slot">certificates/cert-6.pdf</div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon">IMG</div>
+        <div class="cert-title">Грамота 7</div>
+        <div class="cert-issuer">Название организации</div>
+        <div class="cert-year">2022</div>
+        <div class="cert-file-slot">certificates/cert-7.jpg</div>
+      </div>
+
+    </div>
+
+    <div class="show-more-wrap">
+      <button class="btn-show-more" id="certsShowMore">
+        <span class="btn-text">Показать ещё</span>
+        <span class="arrow">↓</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Плоских Александр Павлович</div>
+  <div class="footer-copy">© 2025 · Группа Пр-41</div>
+  <div class="footer-links">
+    <a href="../index.html">Главная</a>
+    <a href="../achievements/index.html">Достижения</a>
+    <a href="../citizen/index.html">Гражданин</a>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

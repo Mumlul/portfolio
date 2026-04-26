@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Плоских Александр — Портфолио</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Scanline texture */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-label::before { content: '>_'; color: var(--muted2); }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease) 0.35s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold); }
+
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.5s forwards;
+  }
+
+  .hero-college {
+    font-size: 0.85rem;
+    color: var(--muted2);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.6s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.7s forwards;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .hero-meta-item { }
+  .hero-meta-item .label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .hero-meta-item .value {
+    font-size: 0.9rem;
+    color: var(--white2);
+    font-weight: 500;
+  }
+
+  /* Stateham-style quote */
+  .hero-statement {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.5;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--gold);
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.85s forwards;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1s forwards;
+  }
+
+  .hero-stack {
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.1s forwards;
+  }
+  .stack-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 0.75rem;
+  }
+  .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+    letter-spacing: 0.05em;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .stack-tag:hover { border-color: var(--gold); background: rgba(201,168,76,0.12); }
+
+  /* Hero Right — Code Terminal */
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 4rem 6rem 2rem;
+    opacity: 0;
+    animation: fadeIn 1.2s var(--ease) 0.6s forwards;
+  }
+
+  .terminal {
+    width: 100%;
+    max-width: 480px;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.2);
+    font-family: var(--mono);
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .terminal::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2), transparent);
+  }
+  .terminal-bar {
+    padding: 0.85rem 1.25rem;
+    background: var(--dark3);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .terminal-dot.r { background: #FF5F56; }
+  .terminal-dot.y { background: #FFBD2E; }
+  .terminal-dot.g { background: #27C93F; }
+  .terminal-title {
+    font-size: 0.7rem;
+    color: var(--muted2);
+    letter-spacing: 0.1em;
+    margin-left: 0.5rem;
+  }
+  .terminal-body { padding: 1.5rem; font-size: 0.8rem; line-height: 2; }
+  .t-comment { color: #555; }
+  .t-key { color: #569CD6; }
+  .t-str { color: var(--gold); }
+  .t-val { color: #9CDCFE; }
+  .t-punct { color: var(--muted); }
+  .t-arr { color: #CE9178; }
+  .t-prompt { color: var(--gold); }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--gold);
+    vertical-align: middle;
+    animation: blink 1s infinite;
+  }
+
+  /* Grid decor */
+  .hero-grid-decor {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.4s forwards;
+  }
+  .scroll-hint span {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted2);
+  }
+  .scroll-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--muted2), transparent);
+    animation: expandLine 2s var(--ease) 1.6s infinite alternate;
+  }
+  @keyframes expandLine {
+    from { width: 40px; opacity: 0.3; }
+    to { width: 80px; opacity: 1; }
+  }
+
+  /* ===== ABOUT ===== */
+  #about { background: var(--dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .about-photo {
+    position: relative;
+  }
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-width: 320px;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .photo-frame svg { width: 64px; height: 64px; opacity: 0.15; }
+  .photo-frame p {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+  .photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    display: none;
+  }
+  .photo-frame img.loaded { display: block; }
+
+  .photo-corner {
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 48px; height: 48px;
+    border-left: 1px solid var(--gold);
+    border-top: 1px solid var(--gold);
+    transform: translate(8px, 8px);
+    opacity: 0.4;
+  }
+
+  .about-content { }
+  .about-lead {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--white2);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--gold);
+  }
+  .about-text p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .detail-group { margin-top: 2.5rem; }
+  .detail-group h3 {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .detail-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .detail-list li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--mono);
+  }
+  .detail-list li::before {
+    content: '▸';
+    color: var(--gold);
+    font-size: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  /* SKILL BARS */
+  #skillBars { margin-top: 2.5rem; }
+  .skills-title {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .skills-bars { display: flex; flex-direction: column; gap: 1rem; }
+  .skill-bar-item { display: flex; flex-direction: column; gap: 0.4rem; }
+  .skill-bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .skill-bar-track {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.2s var(--ease);
+  }
+  .skill-bar-fill.animated { transform: scaleX(1); }
+
+  /* Work Experience Block */
+  .work-experience {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+  }
+  .work-experience::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--gold);
+  }
+  .work-exp-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .work-exp-company {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  .work-exp-role {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .work-exp-period {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted2);
+    margin-bottom: 1rem;
+  }
+  .work-exp-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ===== PROJECTS PREVIEW ===== */
+  #projects-preview { background: var(--black); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2.5rem;
+    transition: border-color 0.4s, transform 0.4s var(--ease), background 0.4s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    border-left: 20px solid transparent;
+    border-top: 20px solid rgba(201,168,76,0.2);
+    transition: border-top-color 0.4s;
+  }
+  .project-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.03);
+    transform: translateY(-6px);
+  }
+  .project-card:hover::before { border-top-color: var(--gold); }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted2);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 1.5rem 3rem; }
+    .hero-right { display: none; }
+    .scroll-hint { left: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-photo { display: none; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="progress-bar" id="readingProgress"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><span>//</span> ploskikh.dev</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Главная</a></li>
+    <li><a href="projects/index.html">Проекты</a></li>
+    <li><a href="achievements/index.html">Достижения</a></li>
+    <li><a href="certificates/index.html">Сертификаты</a></li>
+    <li><a href="citizen/index.html">Гражданин</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Главная</a>
+  <a href="projects/index.html" onclick="closeMobile()">Проекты</a>
+  <a href="achievements/index.html" onclick="closeMobile()">Достижения</a>
+  <a href="certificates/index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="citizen/index.html" onclick="closeMobile()">Гражданин</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-decor"></div>
+  <div class="hero-left">
+    <div class="hero-label">Портфолио · Группа Пр-41</div>
+    <h1 class="hero-name">Плоских<br><em>Александр</em></h1>
+    <div class="hero-role">// Программист · ООО НПО САУТ</div>
+    <div class="hero-college">09.02.07 Информационные системы и программирование · Очная форма</div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Группа</span>
+        <span class="value">Пр-41</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Опыт работы</span>
+        <span class="value">~0.5 года</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Специальность</span>
+        <span class="value">09.02.07</span>
+      </div>
+    </div>
+
+    <div class="hero-statement">
+      «Хороший код — это не тот, который работает. Это тот, который работает и который не стыдно показать.»
+    </div>
+
+    <div class="hero-buttons">
+      <a href="projects/index.html" class="btn-primary">Мои проекты →</a>
+      <a href="achievements/index.html" class="btn-outline">Достижения</a>
+    </div>
+
+    <div class="hero-stack">
+      <div class="stack-label">// tech stack</div>
+      <div class="stack-tags">
+        <span class="stack-tag">C#</span>
+        <span class="stack-tag">Rust</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Kotlin</span>
+        <span class="stack-tag">Avalonia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <span class="terminal-title">developer.json</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-comment">// Плоских Александр Павлович</span><br>
+        <span class="t-punct">{</span><br>
+        &nbsp;&nbsp;<span class="t-key">"name"</span><span class="t-punct">:</span> <span class="t-str">"Alexander Ploskikh"</span><span class="t-punct">,</span><br>
+        &nbsp;&nbsp;<span class="t-key">"group"</span><span class="t-punct">:</span> <span class="t-str">"Пр-41"</span><span class="t-punct">,</span><br>
+        &nbsp;&nbsp;<span class="t-key">"role"</span><span class="t-punct">:</span> <span class="t-str">"Programmer"</span><span class="t-punct">,</span><br>
+        &nbsp;&nbsp;<span class="t-key">"company"</span><span class="t-punct">:</span> <span class="t-str">"ООО НПО САУТ"</span><span class="t-punct">,</span><br>
+        &nbsp;&nbsp;<span class="t-key">"experience"</span><span class="t-punct">:</span> <span class="t-str">"~6 months"</span><span class="t-punct">,</span><br>
+        &nbsp;&nbsp;<span class="t-key">"primary_langs"</span><span class="t-punct">: [</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-arr">"C#"</span><span class="t-punct">,</span> <span class="t-arr">"Rust"</span><span class="t-punct">,</span> <span class="t-arr">"SQL"</span><br>
+        &nbsp;&nbsp;<span class="t-punct">],</span><br>
+        &nbsp;&nbsp;<span class="t-key">"ide"</span><span class="t-punct">: [</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-arr">"Rider"</span><span class="t-punct">,</span> <span class="t-arr">"RustRover"</span><br>
+        &nbsp;&nbsp;<span class="t-punct">],</span><br>
+        &nbsp;&nbsp;<span class="t-key">"frameworks"</span><span class="t-punct">: [</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-arr">"Avalonia"</span><span class="t-punct">,</span> <span class="t-arr">"React"</span><br>
+        &nbsp;&nbsp;<span class="t-punct">],</span><br>
+        &nbsp;&nbsp;<span class="t-key">"available"</span><span class="t-punct">:</span> <span class="t-val">true</span><br>
+        <span class="t-punct">}</span><br>
+        <br>
+        <span class="t-prompt">$ </span><span class="t-cursor"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">О себе</div>
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <div class="photo-frame">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="22" r="12" stroke="#888" stroke-width="1.5"/>
+            <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#888" stroke-width="1.5"/>
+          </svg>
+          <p>Добавьте фото<br>в папку проекта</p>
+          <img src="photo.jpg" alt="Александр Плоских" onload="this.classList.add('loaded')">
+        </div>
+        <div class="photo-corner"></div>
+
+        <div class="work-experience" style="margin-top: 2rem;">
+          <div class="work-exp-label">// Место работы</div>
+          <div class="work-exp-company">ООО НПО САУТ</div>
+          <div class="work-exp-role">Программист</div>
+          <div class="work-exp-period">~6 месяцев · Текущее место</div>
+          <div class="work-exp-desc">Разработка программного обеспечения для нужд предприятия. Основные инструменты: JetBrains Rider, RustRover.</div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="section-title reveal reveal-delay-1">Кто<br>я<em>?</em></div>
+        <div class="about-lead reveal reveal-delay-2">
+          «Я не ищу лёгких путей — я ищу правильные решения. Код либо работает, либо нет. Полутонов здесь быть не может.»
+        </div>
+        <div class="about-text reveal reveal-delay-3">
+          <p>Студент специальности «Информационные системы и программирование», группа Пр-41, очная форма обучения. Параллельно работаю программистом в ООО НПО САУТ, где на практике применяю знания C# и Rust.</p>
+          <p>Пишу на C#, Rust, SQL, HTML, CSS, JavaScript, React, Kotlin. Предпочитаю JetBrains-экосистему — Rider для C# и RustRover для Rust. Люблю решать нетривиальные задачи и строить архитектуру, которая не рассыпается при первом же изменении требований.</p>
+        </div>
+
+        <div class="detail-group reveal reveal-delay-3">
+          <h3>// Основные языки</h3>
+          <ul class="detail-list">
+            <li>C# — основной рабочий язык</li>
+            <li>Rust — системное программирование</li>
+            <li>SQL — базы данных и запросы</li>
+          </ul>
+        </div>
+
+        <div class="detail-group reveal reveal-delay-4">
+          <h3>// Дополнительно</h3>
+          <ul class="detail-list">
+            <li>HTML / CSS / JavaScript / React</li>
+            <li>Kotlin — мобильная разработка</li>
+            <li>Avalonia UI — кросс-платформенные приложения</li>
+          </ul>
+        </div>
+
+        <div id="skillBars" class="reveal">
+          <div class="skills-title">// Уровень владения</div>
+          <div class="skills-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-header"><span>C#</span><span>90%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.9"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header"><span>Rust</span><span>75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.75"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header"><span>SQL</span><span>80%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.8"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header"><span>HTML / CSS / JS</span><span>70%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.7"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-header"><span>React / Kotlin</span><span>55%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.55"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS PREVIEW -->
+<section id="projects-preview">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Проекты</div>
+    <h2 class="section-title reveal reveal-delay-1">Что я<br><em>создал</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">Реальные проекты — для работы, учёбы и себя.</p>
+
+    <div class="projects-grid">
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-num">// 001</div>
+        <div class="project-title">Имитатор движения поезда</div>
+        <div class="project-desc">Программа-симулятор для ООО НПО САУТ. Имитирует движение поезда с учётом физических параметров. Разработана в рамках рабочих задач предприятия.</div>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">Avalonia</span>
+          <span class="project-tag">САУТ</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-num">// 002</div>
+        <div class="project-title">Морской бой</div>
+        <div class="project-desc">Полноценная реализация классической игры «Морской бой» с графическим интерфейсом. Личный проект для прокачки навыков работы с Avalonia.</div>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">Avalonia</span>
+          <span class="project-tag">Game</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-num">// 003</div>
+        <div class="project-title">Погодное приложение</div>
+        <div class="project-desc">Приложение для отображения текущей погоды и прогнозов. Интеграция с внешним API, адаптивный UI.</div>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">Avalonia</span>
+          <span class="project-tag">API</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-num">// 004</div>
+        <div class="project-title">Генератор файлов для УМЦПК</div>
+        <div class="project-desc">Утилита для автоматической генерации и формирования документов для учебного центра УМЦПК. Выполнено по заказу.</div>
+        <div class="project-tags">
+          <span class="project-tag">C#</span>
+          <span class="project-tag">Avalonia</span>
+          <span class="project-tag">УМЦПК</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 3rem;">
+      <a href="projects/index.html" class="btn-outline">Все проекты →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Плоских Александр Павлович</div>
+  <div class="footer-copy">© 2025 · Группа Пр-41 · 09.02.07</div>
+  <div class="footer-links">
+    <a href="#hero">Наверх</a>
+    <a href="projects/index.html">Проекты</a>
+    <a href="achievements/index.html">Достижения</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
