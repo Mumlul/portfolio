@@ -529,6 +529,141 @@
     .about-photo { display: none; }
     .projects-grid { grid-template-columns: 1fr; }
   }
+
+  .photo-stack-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 460px;
+  margin-bottom: 1.5rem;
+}
+
+.photo-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.stack-photo {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: var(--dark2);
+  overflow: hidden;
+  transition:
+    transform 0.6s var(--ease),
+    opacity 0.6s var(--ease),
+    filter 0.6s var(--ease);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.45);
+}
+
+.stack-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ACTIVE */
+.stack-photo.active {
+  z-index: 4;
+  transform: translate(0,0) scale(1);
+  opacity: 1;
+}
+
+/* SECOND */
+.stack-photo.next1 {
+  z-index: 3;
+  transform: translate(18px, 18px) scale(0.96);
+  opacity: 0.75;
+  filter: brightness(0.8);
+}
+
+/* THIRD */
+.stack-photo.next2 {
+  z-index: 2;
+  transform: translate(36px, 36px) scale(0.92);
+  opacity: 0.45;
+  filter: brightness(0.6);
+}
+
+/* HIDDEN */
+.stack-photo.hidden {
+  opacity: 0;
+  transform: translate(60px,60px) scale(0.88);
+  pointer-events: none;
+}
+
+.photo-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(201,168,76,0.25);
+  background: rgba(10,10,10,0.75);
+
+  color: var(--gold);
+
+  font-family: var(--mono);
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    transform 0.3s;
+}
+
+.photo-nav:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--gold);
+}
+
+.photo-nav.prev {
+  left: -22px;
+}
+
+.photo-nav.next {
+  right: -22px;
+}
+
+.photo-counter {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--muted2);
+  margin-top: 0.75rem;
+}
+
+.photo-counter #photoCurrent {
+  color: var(--gold);
+}
+
+.photo-counter .divider {
+  margin: 0 0.35rem;
+}
+
+@media (max-width: 900px) {
+
+  .photo-stack-wrapper {
+    max-width: 100%;
+    height: 420px;
+  }
+
+  .photo-nav.prev {
+    left: 8px;
+  }
+
+  .photo-nav.next {
+    right: 8px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -653,15 +788,40 @@
   <div class="section-inner">
     <div class="section-eyebrow reveal">О себе</div>
     <div class="about-grid">
+
+
       <div class="about-photo reveal">
-        <div class="photo-frame">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="22" r="12" stroke="#888" stroke-width="1.5"/>
-            <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#888" stroke-width="1.5"/>
-          </svg>
-          <p>Добавьте фото<br>в папку проекта</p>
-          <img src="photo.jpg" alt="Александр Плоских" onload="this.classList.add('loaded')">
+
+        <div class="photo-stack-wrapper">
+
+          <button class="photo-nav prev" id="photoPrev">←</button>
+
+          <div class="photo-stack" id="photoStack">
+
+            <div class="stack-photo active">
+              <img src="photo.jpg" alt="Фото 1">
+            </div>
+
+            <div class="stack-photo">
+              <img src="me2.jpg" alt="Фото 2">
+            </div>
+
+            <div class="stack-photo">
+              <img src="me3.jpg" alt="Фото 3">
+            </div>
+
+          </div>
+
+          <button class="photo-nav next" id="photoNext">→</button>
+
         </div>
+
+        <div class="photo-counter">
+          <span id="photoCurrent">01</span>
+          <span class="divider">/</span>
+          <span>04</span>
+        </div>
+
         <div class="photo-corner"></div>
 
         <div class="work-experience" style="margin-top: 2rem;">
@@ -669,8 +829,12 @@
           <div class="work-exp-company">ООО НПО САУТ</div>
           <div class="work-exp-role">Программист</div>
           <div class="work-exp-period">~6 месяцев · Текущее место</div>
-          <div class="work-exp-desc">Разработка программного обеспечения для нужд предприятия. Основные инструменты: JetBrains Rider, RustRover.</div>
+          <div class="work-exp-desc">
+            Разработка программного обеспечения для нужд предприятия.
+            Основные инструменты: JetBrains Rider, RustRover.
+          </div>
         </div>
+
       </div>
 
       <div class="about-content">
@@ -849,5 +1013,69 @@
 </footer>
 
 <script src="script.js"></script>
+
+<script>
+
+const photos = document.querySelectorAll('.stack-photo');
+const currentEl = document.getElementById('photoCurrent');
+
+let current = 0;
+
+function renderStack() {
+
+  photos.forEach(photo => {
+    photo.classList.remove(
+      'active',
+      'next1',
+      'next2',
+      'hidden'
+    );
+  });
+
+  photos.forEach((photo, index) => {
+
+    const offset =
+      (index - current + photos.length) % photos.length;
+
+    if (offset === 0) {
+      photo.classList.add('active');
+    }
+    else if (offset === 1) {
+      photo.classList.add('next1');
+    }
+    else if (offset === 2) {
+      photo.classList.add('next2');
+    }
+    else {
+      photo.classList.add('hidden');
+    }
+
+  });
+
+  currentEl.textContent =
+    String(current + 1).padStart(2, '0');
+}
+
+document.getElementById('photoNext')
+  .addEventListener('click', () => {
+
+    current =
+      (current + 1) % photos.length;
+
+    renderStack();
+});
+
+document.getElementById('photoPrev')
+  .addEventListener('click', () => {
+
+    current =
+      (current - 1 + photos.length) % photos.length;
+
+    renderStack();
+});
+
+renderStack();
+
+</script>
 </body>
 </html>
