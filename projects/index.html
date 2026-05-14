@@ -147,11 +147,152 @@
   }
   .project-folder::before { content: '📁'; }
 
+
+  /* MODAL */
+
+.project-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.72);
+  backdrop-filter:blur(8px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+
+  opacity:0;
+  visibility:hidden;
+  transition:0.35s;
+}
+
+.project-modal.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.project-modal-content{
+  width:min(520px,90%);
+  background:var(--dark2);
+  border:1px solid rgba(201,168,76,0.25);
+  padding:3rem;
+  position:relative;
+
+  clip-path:polygon(
+    0 0,
+    calc(100% - 24px) 0,
+    100% 24px,
+    100% 100%,
+    24px 100%,
+    0 calc(100% - 24px)
+  );
+
+  box-shadow:0 30px 80px rgba(0,0,0,0.45);
+}
+
+.project-modal-close{
+  position:absolute;
+  top:1rem;
+  right:1rem;
+  width:42px;
+  height:42px;
+  border:none;
+  background:rgba(255,255,255,0.04);
+  color:var(--white);
+  font-size:1.5rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.project-modal-close:hover{
+  background:rgba(201,168,76,0.15);
+  color:var(--gold);
+}
+
+.project-modal-eyebrow{
+  font-family:var(--mono);
+  font-size:0.7rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1rem;
+}
+
+.project-modal-title{
+  font-family:var(--serif);
+  font-size:2rem;
+  color:var(--white);
+  margin-bottom:1.25rem;
+  line-height:1.1;
+}
+
+.project-modal-text{
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:1rem;
+  font-size:0.95rem;
+}
+
+.project-modal-text.muted{
+  color:var(--muted2);
+  font-size:0.85rem;
+}
+
   @media (max-width: 900px) {
     .page-hero { padding: 8rem 1.5rem 3rem; }
     .projects-full-grid { grid-template-columns: 1fr; }
     #projects-main { padding: 4rem 1.5rem; }
   }
+
+  .project-actions{
+  display:flex;
+  gap:0.75rem;
+  margin-top:1.5rem;
+}
+
+.project-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0.75rem 1.2rem;
+
+  border:1px solid rgba(201,168,76,0.2);
+  background:rgba(255,255,255,0.02);
+
+  color:var(--white);
+  text-decoration:none;
+
+  font-family:var(--mono);
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+
+  transition:0.3s;
+}
+
+.project-btn:hover{
+  border-color:var(--gold);
+  background:rgba(201,168,76,0.08);
+  color:var(--gold);
+}
+
+.project-btn.github::before{
+  content:'⚡';
+  margin-right:0.5rem;
+}
+
+.restricted-project{
+  cursor:pointer;
+}
+
+.restricted-project::after{
+  content:'🔒';
+  position:absolute;
+  top:18px;
+  right:18px;
+  font-size:1rem;
+  opacity:0.7;
+}
 </style>
 </head>
 <body>
@@ -164,8 +305,8 @@
   <ul class="nav-links">
     <li><a href="../index.html">Главная</a></li>
     <li><a href="index.html" class="active">Проекты</a></li>
-    <li><a href="../achievements/index.html">Достижения</a></li>
     <li><a href="../certificates/index.html">Сертификаты</a></li>
+    <li><a href="../competencies/index.html">Компетенции</a></li>
     <li><a href="../citizen/index.html">Гражданин</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Меню">
@@ -176,8 +317,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="../index.html" onclick="closeMobile()">Главная</a>
   <a href="index.html" onclick="closeMobile()">Проекты</a>
-  <a href="../achievements/index.html" onclick="closeMobile()">Достижения</a>
   <a href="../certificates/index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="../competencies/index.html" onclick="closeMobile()">Компетенции</a>
   <a href="../citizen/index.html" onclick="closeMobile()">Гражданин</a>
 </div>
 
@@ -209,7 +350,7 @@
       </div>
 
       <div class="project-card-full reveal reveal-delay-1">
-        <div class="project-num">// 002 · Личный проект</div>
+        <div class="project-num">// 002 · Учебный проект</div>
         <div class="project-title">Морской бой</div>
         <div class="project-subtitle">Игра · Desktop</div>
         <div class="project-desc">Полноценная реализация классической игры «Морской бой» с графическим интерфейсом. Включает расстановку кораблей, игру против ИИ-противника, анимации попаданий и промахов. Проект для прокачки навыков Avalonia и паттернов MVVM.</div>
@@ -219,24 +360,45 @@
           <span class="project-tag">MVVM</span>
           <span class="project-tag">Game</span>
         </div>
-        <div class="project-divider"></div>
-        <div class="project-folder">projects/sea-battle/</div>
+      
+
+        <div class="project-actions">
+
+            <a
+              href="https://github.com/Mumlul/ship.git"
+              target="_blank"
+              class="project-btn github">
+              GitHub
+            </a>
+
+        </div>
+
       </div>
 
       <div class="project-card-full reveal reveal-delay-2">
-        <div class="project-num">// 003 · Личный проект</div>
-        <div class="project-title">Погодное приложение</div>
-        <div class="project-subtitle">Weather App · Desktop</div>
-        <div class="project-desc">Приложение для просмотра текущей погоды и прогнозов. Интеграция с метеорологическим API, отображение почасового и многодневного прогноза, адаптивный интерфейс с анимациями. Геолокация и ручной ввод города.</div>
+        <div class="project-num">// 003 · Учебный проект</div>
+        <div class="project-title">ARM для работников кинотеатром</div>
+        <div class="project-subtitle">ARM · Desktop</div>
+        <div class="project-desc">Приложение для работников кинотеатра для удобной продажи билетов</div>
         <div class="project-tags">
           <span class="project-tag">C#</span>
-          <span class="project-tag">Avalonia</span>
-          <span class="project-tag">REST API</span>
-          <span class="project-tag">JSON</span>
+          <span class="project-tag">WPF</span>
         </div>
-        <div class="project-divider"></div>
-        <div class="project-folder">projects/weather-app/</div>
+        
+        <div class="project-actions">
+
+            <a
+              href="https://github.com/Mumlul/ARM_Cinema.git"
+              target="_blank"
+              class="project-btn github"
+            >
+              GitHub
+            </a>
+
+          </div>
+
       </div>
+
 
       <div class="project-card-full reveal reveal-delay-3">
         <div class="project-num">// 004 · Заказная разработка</div>
@@ -280,8 +442,19 @@
           <span class="project-tag">SQL</span>
           <span class="project-tag">LMS</span>
         </div>
-        <div class="project-divider"></div>
-        <div class="project-folder">projects/lms/</div>
+        
+        <div class="project-actions">
+
+          <a
+            href="https://github.com/Mumlul/Course_work.git"
+            target="_blank"
+            class="project-btn github"
+          >
+            GitHub
+          </a>
+
+        </div>
+
       </div>
 
     </div>
@@ -297,14 +470,99 @@
 
 <footer>
   <div class="footer-name">Плоских Александр Павлович</div>
-  <div class="footer-copy">© 2025 · Группа Пр-41</div>
+  <div class="footer-copy">© 2026 · Группа Пр-41</div>
   <div class="footer-links">
     <a href="../index.html">Главная</a>
-    <a href="../achievements/index.html">Достижения</a>
     <a href="../certificates/index.html">Сертификаты</a>
   </div>
 </footer>
 
+<div class="project-modal" id="projectModal">
+  <div class="project-modal-content">
+
+    <button class="project-modal-close" id="closeProjectModal">
+      ×
+    </button>
+
+    <div class="project-modal-eyebrow">
+      // Ограничение доступа
+    </div>
+
+    <h2 class="project-modal-title">
+      Исходный код недоступен
+    </h2>
+
+    <p class="project-modal-text">
+      Заказчик данного проекта попросил не публиковать исходный код
+      и внутреннюю реализацию проекта в открытом доступе.
+    </p>
+
+    <p class="project-modal-text muted">
+      Вы можете ознакомиться с описанием проекта,
+      используемыми технологиями и функциональностью.
+    </p>
+
+  </div>
+</div>
+
+
 <script src="../script.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const modal = document.getElementById('projectModal');
+  const closeBtn = document.getElementById('closeProjectModal');
+
+  const restrictedProjects = [
+    'Имитатор движения поезда',
+    'Генератор файлов УМЦПК',
+    'Сайт психологического тестирования'
+  ];
+
+  document.querySelectorAll('.project-card-full').forEach(card => {
+
+    const title = card
+      .querySelector('.project-title')
+      ?.textContent
+      .trim();
+
+    if (restrictedProjects.includes(title)) {
+
+      card.classList.add('restricted-project');
+
+      card.addEventListener('click', () => {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+    }
+
+  });
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+});
+</script>
+
+
+
 </body>
 </html>

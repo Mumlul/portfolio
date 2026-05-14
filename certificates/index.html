@@ -147,6 +147,36 @@
     word-break: break-all;
   }
 
+  .cert-card{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .drive-section{
+  display:flex;
+  justify-content:center;
+  margin:4rem 0;
+}
+
+.drive-btn{
+  padding:18px 36px;
+  background:linear-gradient(135deg,#c9a84c,#e0c36e);
+  color:#000;
+  text-decoration:none;
+  font-family:var(--mono);
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.drive-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(201,168,76,0.35);
+}
+
   @media (max-width: 1100px) {
     .certs-grid { grid-template-columns: repeat(3, 1fr); }
   }
@@ -170,8 +200,8 @@
   <ul class="nav-links">
     <li><a href="../index.html">Главная</a></li>
     <li><a href="../projects/index.html">Проекты</a></li>
-    <li><a href="../achievements/index.html">Достижения</a></li>
     <li><a href="index.html" class="active">Сертификаты</a></li>
+    <li><a href="../competencies/index.html">Компетенции</a></li>
     <li><a href="../citizen/index.html">Гражданин</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Меню">
@@ -182,8 +212,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="../index.html" onclick="closeMobile()">Главная</a>
   <a href="../projects/index.html" onclick="closeMobile()">Проекты</a>
-  <a href="../achievements/index.html" onclick="closeMobile()">Достижения</a>
   <a href="index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="../competencies/index.html" onclick="closeMobile()">Компетенции</a>
   <a href="../citizen/index.html" onclick="closeMobile()">Гражданин</a>
 </div>
 
@@ -199,62 +229,77 @@
 
     <div class="certs-grid" id="certsGrid">
 
-      <div class="cert-card reveal">
+      <!-- Сертификат 1 -->
+      <a class="cert-card reveal"
+        href="cert-1.pdf"
+        target="_blank">
+
         <div class="cert-icon">PDF</div>
-        <div class="cert-title">Сертификат 1</div>
-        <div class="cert-issuer">Название организации</div>
+        <div class="cert-title">Прохождение курса разрабокти на JavaScript</div>
+        <div class="cert-issuer">Код Будущего</div>
         <div class="cert-year">2024</div>
-        <div class="cert-file-slot">certificates/cert-1.pdf</div>
-      </div>
 
-      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-file-slot">
+          Нажмите для открытия
+        </div>
+      </a>
+
+      <!-- Сертификат 2 -->
+      <a class="cert-card reveal reveal-delay-1"
+        href="cert-2.pdf"
+        target="_blank">
+
         <div class="cert-icon">PDF</div>
-        <div class="cert-title">Сертификат 2</div>
-        <div class="cert-issuer">Название организации</div>
+        <div class="cert-title">Участие в викторине по математике</div>
+        <div class="cert-issuer">ЕКТС</div>
         <div class="cert-year">2024</div>
-        <div class="cert-file-slot">certificates/cert-2.pdf</div>
-      </div>
 
-      <div class="cert-card reveal reveal-delay-2">
-        <div class="cert-icon">PDF</div>
-        <div class="cert-title">Сертификат 3</div>
-        <div class="cert-issuer">Название организации</div>
-        <div class="cert-year">2023</div>
-        <div class="cert-file-slot">certificates/cert-3.pdf</div>
-      </div>
+        <div class="cert-file-slot">
+          Нажмите для открытия
+        </div>
+      </a>
 
-      <div class="cert-card reveal reveal-delay-3">
-        <div class="cert-icon">PDF</div>
-        <div class="cert-title">Свидетельство 4</div>
-        <div class="cert-issuer">Название организации</div>
-        <div class="cert-year">2023</div>
-        <div class="cert-file-slot">certificates/cert-4.pdf</div>
-      </div>
+      <!-- Сертификат 3 -->
+      <a class="cert-card reveal reveal-delay-2"
+        href="1.JPG"
+        target="_blank">
 
-      <!-- Скрытые карточки -->
-      <div class="cert-card reveal">
-        <div class="cert-icon">PDF</div>
-        <div class="cert-title">Сертификат 5</div>
-        <div class="cert-issuer">Название организации</div>
-        <div class="cert-year">2023</div>
-        <div class="cert-file-slot">certificates/cert-5.pdf</div>
-      </div>
-
-      <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-icon">PDF</div>
-        <div class="cert-title">Сертификат 6</div>
-        <div class="cert-issuer">Название организации</div>
-        <div class="cert-year">2022</div>
-        <div class="cert-file-slot">certificates/cert-6.pdf</div>
-      </div>
-
-      <div class="cert-card reveal reveal-delay-2">
         <div class="cert-icon">IMG</div>
-        <div class="cert-title">Грамота 7</div>
-        <div class="cert-issuer">Название организации</div>
+        <div class="cert-title">Победитель в номинации Прорыв в бизнесе</div>
+        <div class="cert-issuer">УрГЭУ</div>
+
+        <div class="cert-file-slot">
+          Нажмите для открытия
+        </div>
+      </a>
+
+      <a class="cert-card reveal reveal-delay-2"
+        href="cert-3.pdf"
+        target="_blank">
+
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Диплом по математике</div>
+        <div class="cert-issuer">КОТ</div>
         <div class="cert-year">2022</div>
-        <div class="cert-file-slot">certificates/cert-7.jpg</div>
-      </div>
+
+        <div class="cert-file-slot">
+          Нажмите для открытия
+        </div>
+      </a>
+
+      <a class="cert-card reveal reveal-delay-2"
+        href="cert-5.pdf"
+        target="_blank">
+
+        <div class="cert-icon">PDF</div>
+        <div class="cert-title">Призер по математике</div>
+        <div class="cert-issuer">ЕКТС</div>
+        <div class="cert-year">2023</div>
+
+        <div class="cert-file-slot">
+          Нажмите для открытия
+        </div>
+      </a>
 
     </div>
 
@@ -265,15 +310,24 @@
       </button>
     </div>
 
+    <div class="drive-section">
+      <a href="https://disk.yandex.ru/d/zjWWa02-9WSCAQ"
+        target="_blank"
+        class="drive-btn">
+
+        Смотреть все достижения
+      </a>
+    </div>
+
   </div>
 </section>
 
 <footer>
   <div class="footer-name">Плоских Александр Павлович</div>
-  <div class="footer-copy">© 2025 · Группа Пр-41</div>
+  <div class="footer-copy">© 2026 · Группа Пр-41</div>
   <div class="footer-links">
     <a href="../index.html">Главная</a>
-    <a href="../achievements/index.html">Достижения</a>
+    <a href="../certificates/index.html">Сертификаты</a>
     <a href="../citizen/index.html">Гражданин</a>
   </div>
 </footer>

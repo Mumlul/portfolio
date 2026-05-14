@@ -542,8 +542,8 @@
   <ul class="nav-links">
     <li><a href="index.html" class="active">Главная</a></li>
     <li><a href="projects/index.html">Проекты</a></li>
-    <li><a href="achievements/index.html">Достижения</a></li>
     <li><a href="certificates/index.html">Сертификаты</a></li>
+    <li><a href="competencies/index.html">Компетенции</a></li>
     <li><a href="citizen/index.html">Гражданин</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Меню">
@@ -555,8 +555,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" onclick="closeMobile()">Главная</a>
   <a href="projects/index.html" onclick="closeMobile()">Проекты</a>
-  <a href="achievements/index.html" onclick="closeMobile()">Достижения</a>
   <a href="certificates/index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="competencies/index.html" onclick="closeMobile()">Компетенции</a>
   <a href="citizen/index.html" onclick="closeMobile()">Гражданин</a>
 </div>
 
@@ -674,10 +674,7 @@
       </div>
 
       <div class="about-content">
-        <div class="section-title reveal reveal-delay-1">Кто<br>я<em>?</em></div>
-        <div class="about-lead reveal reveal-delay-2">
-          «Я не ищу лёгких путей — я ищу правильные решения. Код либо работает, либо нет. Полутонов здесь быть не может.»
-        </div>
+        <div class="section-title reveal reveal-delay-1">Кто я<em>?</em></div>
         <div class="about-text reveal reveal-delay-3">
           <p>Студент специальности «Информационные системы и программирование», группа Пр-41, очная форма обучения. Параллельно работаю программистом в ООО НПО САУТ, где на практике применяю знания C# и Rust.</p>
           <p>Пишу на C#, Rust, SQL, HTML, CSS, JavaScript, React, Kotlin. Предпочитаю JetBrains-экосистему — Rider для C# и RustRover для Rust. Люблю решать нетривиальные задачи и строить архитектуру, которая не рассыпается при первом же изменении требований.</p>
@@ -736,56 +733,106 @@
   <div class="section-inner">
     <div class="section-eyebrow reveal">Проекты</div>
     <h2 class="section-title reveal reveal-delay-1">Что я<br><em>создал</em></h2>
-    <p class="section-subtitle reveal reveal-delay-2">Реальные проекты — для работы, учёбы и себя.</p>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Реальные проекты — для работы, учёбы и заказной разработки.
+    </p>
 
     <div class="projects-grid">
+
+      <!-- 001 -->
       <div class="project-card reveal reveal-delay-1">
-        <div class="project-num">// 001</div>
-        <div class="project-title">Имитатор движения поезда</div>
-        <div class="project-desc">Программа-симулятор для ООО НПО САУТ. Имитирует движение поезда с учётом физических параметров. Разработана в рамках рабочих задач предприятия.</div>
+        <div class="project-num">// 001 · Рабочий проект</div>
+
+        <div class="project-title">
+          Имитатор движения поезда
+        </div>
+
+        <div class="project-desc">
+          Программа-симулятор для моделирования движения поезда
+          с учётом физических параметров системы САУТ.
+          Реализована логика управления скоростью,
+          торможения и контроля параметров движения.
+        </div>
+
         <div class="project-tags">
           <span class="project-tag">C#</span>
           <span class="project-tag">Avalonia</span>
-          <span class="project-tag">САУТ</span>
+          <span class="project-tag">Physics</span>
+          <span class="project-tag">Desktop</span>
         </div>
       </div>
 
+      <!-- 002 -->
       <div class="project-card reveal reveal-delay-2">
-        <div class="project-num">// 002</div>
-        <div class="project-title">Морской бой</div>
-        <div class="project-desc">Полноценная реализация классической игры «Морской бой» с графическим интерфейсом. Личный проект для прокачки навыков работы с Avalonia.</div>
+        <div class="project-num">// 002 · Учебный проект</div>
+
+        <div class="project-title">
+          Морской бой
+        </div>
+
+        <div class="project-desc">
+          Полноценная реализация классической игры
+          «Морской бой» с графическим интерфейсом,
+          ИИ-противником и анимациями.
+          Проект для практики Avalonia и MVVM.
+        </div>
+
         <div class="project-tags">
           <span class="project-tag">C#</span>
           <span class="project-tag">Avalonia</span>
+          <span class="project-tag">MVVM</span>
           <span class="project-tag">Game</span>
         </div>
       </div>
 
+      <!-- 003 -->
       <div class="project-card reveal reveal-delay-3">
-        <div class="project-num">// 003</div>
-        <div class="project-title">Погодное приложение</div>
-        <div class="project-desc">Приложение для отображения текущей погоды и прогнозов. Интеграция с внешним API, адаптивный UI.</div>
+        <div class="project-num">// 003 · Учебный проект</div>
+
+        <div class="project-title">
+          ARM для работников кинотеатра
+        </div>
+
+        <div class="project-desc">
+          Приложение для работников кинотеатра
+          для удобной продажи билетов,
+          управления сеансами и работы с клиентами.
+        </div>
+
         <div class="project-tags">
           <span class="project-tag">C#</span>
-          <span class="project-tag">Avalonia</span>
-          <span class="project-tag">API</span>
+          <span class="project-tag">WPF</span>
+          <span class="project-tag">Desktop</span>
         </div>
       </div>
 
+      <!-- 004 -->
       <div class="project-card reveal reveal-delay-4">
-        <div class="project-num">// 004</div>
-        <div class="project-title">Генератор файлов для УМЦПК</div>
-        <div class="project-desc">Утилита для автоматической генерации и формирования документов для учебного центра УМЦПК. Выполнено по заказу.</div>
+        <div class="project-num">// 004 · Заказная разработка</div>
+
+        <div class="project-title">
+          Генератор файлов УМЦПК
+        </div>
+
+        <div class="project-desc">
+          Настольное приложение для автоматической
+          генерации и формирования пакетов документов
+          для учебного центра УМЦПК.
+        </div>
+
         <div class="project-tags">
           <span class="project-tag">C#</span>
           <span class="project-tag">Avalonia</span>
-          <span class="project-tag">УМЦПК</span>
+          <span class="project-tag">Templates</span>
         </div>
       </div>
+
     </div>
 
     <div style="text-align:center; margin-top: 3rem;">
-      <a href="projects/index.html" class="btn-outline">Все проекты →</a>
+      <a href="projects/index.html" class="btn-outline">
+        Все проекты →
+      </a>
     </div>
   </div>
 </section>
@@ -793,11 +840,11 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-name">Плоских Александр Павлович</div>
-  <div class="footer-copy">© 2025 · Группа Пр-41 · 09.02.07</div>
+  <div class="footer-copy">© 2026 · Группа Пр-41 · 09.02.07</div>
   <div class="footer-links">
     <a href="#hero">Наверх</a>
     <a href="projects/index.html">Проекты</a>
-    <a href="achievements/index.html">Достижения</a>
+    <a href="../certificates/index.html">Сертификаты</a>
   </div>
 </footer>
 

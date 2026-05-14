@@ -195,6 +195,48 @@
   }
   .activity-file-slot::before { content: '📁 '; }
 
+  .activity-image{
+  margin-top:1.25rem;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(201,168,76,0.15);
+  background:var(--dark3);
+  aspect-ratio:16/10;
+}
+
+.activity-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.5s var(--ease);
+}
+
+.activity-card:hover .activity-image img{
+  transform:scale(1.05);
+}
+
+.activity-image-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:0.75rem;
+
+  font-family:var(--mono);
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  color:var(--muted2);
+  text-transform:uppercase;
+}
+
+.activity-image-placeholder span{
+  font-size:2rem;
+  opacity:0.4;
+}
+
   @media (max-width: 900px) {
     .page-hero { padding: 8rem 1.5rem 3rem; }
     .citizen-intro { grid-template-columns: 1fr; gap: 3rem; }
@@ -213,8 +255,8 @@
   <ul class="nav-links">
     <li><a href="../index.html">Главная</a></li>
     <li><a href="../projects/index.html">Проекты</a></li>
-    <li><a href="../achievements/index.html">Достижения</a></li>
     <li><a href="../certificates/index.html">Сертификаты</a></li>
+    <li><a href="../competencies/index.html">Компетенции</a></li>
     <li><a href="index.html" class="active">Гражданин</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Меню">
@@ -225,8 +267,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="../index.html" onclick="closeMobile()">Главная</a>
   <a href="../projects/index.html" onclick="closeMobile()">Проекты</a>
-  <a href="../achievements/index.html" onclick="closeMobile()">Достижения</a>
   <a href="../certificates/index.html" onclick="closeMobile()">Сертификаты</a>
+  <a href="../competencies/index.html" onclick="closeMobile()">Компетенции</a>
   <a href="index.html" onclick="closeMobile()">Гражданин</a>
 </div>
 
@@ -283,48 +325,50 @@
 
       <div class="activity-card reveal">
         <div class="activity-num">01</div>
+
         <div class="activity-icon">🤝</div>
-        <div class="activity-title">Добавьте активность</div>
-        <div class="activity-desc">Опишите своё участие в общественной жизни: волонтёрство, патриотические мероприятия, студенческий совет, спортивные секции и другие активности. Это важная часть портфолио.</div>
-        <div class="activity-period">// Год или период</div>
-        <div class="activity-file-slot">citizen/activity-1.pdf</div>
+
+        <div class="activity-title">
+          Прошел курс в центре ВОИН
+        </div>
+
+        <div class="activity-desc">
+          Получил знания в военной области
+        </div>
+
+        <div class="activity-period">
+          // 2024-25
+        </div>
+
+        <div class="activity-image">
+
+        <img src="voin.jpg" alt="Получение грамоты">
+        </div>
       </div>
 
       <div class="activity-card reveal reveal-delay-1">
         <div class="activity-num">02</div>
+
         <div class="activity-icon">🏆</div>
-        <div class="activity-title">Вторая активность</div>
-        <div class="activity-desc">Ещё одна общественная активность. Скопируйте карточку и заполните своими данными. Положите подтверждающий документ в папку citizen/.</div>
-        <div class="activity-period">// Год или период</div>
-        <div class="activity-file-slot">citizen/activity-2.pdf</div>
-      </div>
 
-      <div class="activity-card reveal reveal-delay-2">
-        <div class="activity-num">03</div>
-        <div class="activity-icon">🎯</div>
-        <div class="activity-title">Третья активность</div>
-        <div class="activity-desc">По умолчанию показываются первые 4 карточки. Остальные открываются по кнопке «Показать ещё». Кнопка «Скрыть» сворачивает список обратно.</div>
-        <div class="activity-period">// Год или период</div>
-        <div class="activity-file-slot">citizen/activity-3.pdf</div>
-      </div>
+        <div class="activity-title">
+          Студенческие мероприятия
+        </div>
 
-      <div class="activity-card reveal reveal-delay-3">
-        <div class="activity-num">04</div>
-        <div class="activity-icon">⚡</div>
-        <div class="activity-title">Четвёртая активность</div>
-        <div class="activity-desc">Последняя карточка из показанных по умолчанию. Добавьте сюда реальную активность: спорт, волонтёрство, студсовет, участие в акциях.</div>
-        <div class="activity-period">// Год или период</div>
-        <div class="activity-file-slot">citizen/activity-4.pdf</div>
-      </div>
+        <div class="activity-desc">
+          Участие в зарнице
+        </div>
 
-      <!-- Скрытые -->
-      <div class="activity-card reveal">
-        <div class="activity-num">05</div>
-        <div class="activity-icon">🌟</div>
-        <div class="activity-title">Пятая активность</div>
-        <div class="activity-desc">Эта карточка скрыта по умолчанию и откроется при нажатии «Показать ещё». Добавьте столько карточек, сколько нужно — все откроются одной кнопкой.</div>
-        <div class="activity-period">// Год или период</div>
-        <div class="activity-file-slot">citizen/activity-5.pdf</div>
+        <div class="activity-period">
+          // 2023
+        </div>
+
+
+        <div class="activity-image">
+
+        <img src="r.jpg" alt="Получение грамоты">
+        </div>
+        
       </div>
 
     </div>
@@ -341,10 +385,9 @@
 
 <footer>
   <div class="footer-name">Плоских Александр Павлович</div>
-  <div class="footer-copy">© 2025 · Группа Пр-41</div>
+  <div class="footer-copy">© 2026 · Группа Пр-41</div>
   <div class="footer-links">
     <a href="../index.html">Главная</a>
-    <a href="../achievements/index.html">Достижения</a>
     <a href="../certificates/index.html">Сертификаты</a>
   </div>
 </footer>
